@@ -47,12 +47,12 @@ function copy {
 # recommendation checks
 ####################
 
-if [ "$R" = "$HOME/dotfiles" ] ; then
+if [ "$R" = "$HOME/Projects/Scythium/dotfiles" ] ; then
   printf "running dotfiles from recommended directory in"
-  printf "$HOME/dotfiles"
+  printf "$HOME/Projects/Scythium/dotfiles"
 else
   printf "dotfiles is currently running in $D"
-  printf "We recommend storing it in $HOME/dotfiles"
+  printf "It is recommended to store it in: $HOME/Projects/Scythium/dotfiles"
   read -q -p "Are you sure you want to continue [y/N]"
   # TODO: add an actual check
   exit
@@ -75,6 +75,14 @@ copy git ~/
 header rsync
 
 install rsync
+
+##############
+# atom
+##############
+
+header atom
+
+install atom
 
 ####################
 # skeleton setup
