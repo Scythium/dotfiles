@@ -1,0 +1,258 @@
+#!/bin/bash
+
+####################
+# script variables
+####################
+
+R=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+####################
+# script functions
+####################
+
+function header {
+  L=`expr length "$1"`
+  P=`expr 77 - $L`
+  printf '%*s' "$P" | tr ' ' "=" && echo " $1 ="
+}
+
+function install {
+  apt --no-install-recommends install -yf $1
+}
+
+function clone {
+  git clone --depth=1 https://github.com/$1.git $2
+}
+
+function copy {
+  D=(`find $1 -type d | sed -r "s/^$1\///"`)
+  F=(`find $1 -type f \( ! -iname "*.gitkeep" \) | sed -r "s/^$1\///"`)
+
+  mkdir -p $2
+
+  for d in "${D[@]:1}" ; do
+    mkdir -p $2/$d
+  done
+
+  for f in "${F[@]}" ; do
+    if [ "$3" = true ] ; then
+      cp $R/$1/$f $2/$f
+    else
+      ln -s $R/$1/$f $2/$f
+    fi
+  done
+}
+
+####################
+# recommendation checks
+####################
+
+if [ "$R" = "$HOME/dotfiles" ] ; then
+  printf "running dotfiles from recommended directory in"
+  printf "$HOME/dotfiles"
+else
+  printf "dotfiles is currently running in $D"
+  printf "We recommend storing it in $HOME/dotfiles"
+  read -q -p "Are you sure you want to continue [y/N]"
+  # TODO: add an actual check
+  exit
+fi
+
+####################
+# git
+####################
+
+header git
+
+install git
+
+copy git ~/
+
+####################
+# rsync
+####################
+
+header rsync
+
+install rsync
+
+####################
+# skeleton setup
+####################
+
+# header skeleton
+
+#mkdir -p ~/Downloads
+#mkdir -p ~/Music
+#mkdir -p ~/Projects
+#mkdir -p ~/Virtual\ Machines
+
+####################
+# zsh setup
+####################
+
+# header zsh
+#
+# install zsh
+# install zsh-autosuggestions
+#
+# mkdir -p ~/.zsh
+#
+# clone b4b4r07/zplug ~/.zsh
+#
+# copy zsh ~/
+#
+# if echo $SHELL | grep -q "zsh" ; then
+#   echo "zsh is already default shell"
+# else
+#   echo "setting zsh to default shell"
+#   chsh -s /usr/bin/zsh
+# fi
+#
+# [[ -f ~/.bash_history ]] && rm ~/.bash_history
+# [[ -f ~/.bash_logout ]] && rm ~/.bash_logout
+# [[ -f ~/.bash_profile ]] && rm ~/.bash_profile
+# [[ -f ~/.bashrc ]] && rm ~/.bashrc
+
+###################
+# ag setup
+###################
+
+# header ag
+#
+# install silversearcher-ag
+
+####################
+# vim setup
+####################
+
+# header vim
+#
+# install vim
+#
+# mkdir -p ~/.vim/bundle
+#
+# clone VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+#
+# copy vim ~/
+#
+# vim +PluginInstall +qall +quit
+#
+# git config --global core.editor "vim"
+
+####################
+# keychain setup
+####################
+
+# header keychain
+#
+# install openssh
+# install keychain
+#
+# copy ssh ~/.ssh
+
+####################
+# font setup
+####################
+
+# header fonts
+
+# TODO: Install fonts and what not
+
+####################
+# audio setup
+####################
+
+#header audio
+
+#install pulseaudio
+#install pavucontrol
+#install pulseaudio-alsa
+
+#install gstreamer1.0
+#install gstreamer1.0-plugins-base
+#install gstreamer1.0-plugins-good
+#install gstreamer1.0-plugins-bad
+#install gstreamer1.0-plugins-ugly
+#install gstreamer1.0-alsa
+#install gstreamer1.0-libav
+#install gstreamer0.10-python
+
+#if lsmod | grep -q "oss" ; then
+#  rmmod snd_pcm_oss # https://wiki.archlinux.org/index.php/PulseAudio
+#fi
+
+####################
+# mopidy setup
+####################
+
+#header mopidy
+
+# TODO: Add mopidy ppa
+
+#install mopidy
+
+#install mopidy-soundcloud
+#install mopidy-spotify
+#install mopidy-youtube
+
+#copy mopidy ~/.config/mopidy true
+
+####################
+# ncmpcpp setup
+####################
+
+#header ncmpcpp
+
+#install ncmpcpp
+
+#copy ncmpcpp ~/.ncmpcpp
+
+####################
+# sway setup
+####################
+
+#header sway
+
+#install sway
+#install swaybg
+#install swayidle
+#install swaylock
+
+#copy sway ~/.config/sway
+#copy waybar ~/.config/waybar
+
+###################
+# virtualbox setup
+###################
+
+#header virtualbox
+
+#install virtualbox
+#install virtualbox-dkms
+#install virtualbox-ext-pack
+#install virtualbox-guest-additions-iso
+
+#VBoxManage setextradata global GUI/Customizations noMenuBar,noStatusBar
+
+####################
+# script stuff
+####################
+
+#header script
+
+#install grim
+#install imagemagick
+
+#copy bin ~/.bin
+
+####################
+# firefox setup
+####################
+
+#header firefox
+
+#install firefox
+
+# TODO: Enable custom user chrome flag
+# TODO: Copy css files to ~/.mozilla/firefox/*default-release/chrome/
