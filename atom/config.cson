@@ -1,0 +1,15 @@
+"*":
+  "atom-material-ui":
+    colors:
+      abaseColor: "#006b96"
+  core:
+    telemetryConsent: "no"
+    themes: [
+      "atom-material-ui"
+      "atom-material-syntax"
+    ]
+  "exception-reporting":
+    userId: "1e0d90bf-51da-41c0-9158-0f9c60a3c4f2"
+  "gpp-compiler": {}
+  welcome:
+    showOnStartup: false
