@@ -62,11 +62,11 @@ fi
 # git
 ####################
 
-header git
+#header git
 
-install git
+#install git
 
-copy git ~/
+#copy git ~/
 
 ####################
 # rsync
